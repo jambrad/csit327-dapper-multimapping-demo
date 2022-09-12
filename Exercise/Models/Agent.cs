@@ -12,12 +12,12 @@ namespace DapperDemo.Models
         public int Id { get; set; }
         public string? Name { get; set; }
         public string? Country { get; set; }
-        public string? Role { get; set; }
+        public int? RoleId { get; set; }
 
         // Returns a JSON string representation of this instance
         public override string ToString()
         {
-            return JsonConvert.SerializeObject(this);
+            return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
     }
 }

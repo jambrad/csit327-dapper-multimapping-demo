@@ -17,17 +17,17 @@ namespace DapperDemo.Repositories
         public AgentRepository()
         {
             // replace with your db server connection string
-            _context = new DapperContext("Data Source=JCA-PC;Initial Catalog=ValoDb;Integrated Security=True;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False;");
+            _context = new DapperContext("Data Source=JCA-PC;Initial Catalog=ValoDb2;Integrated Security=True;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False;");
         }
 
         public int Add(Agent agent)
         {
-            var sql = "INSERT INTO AGENT (Name, Country, Role) VALUES (@Name, @Country, @Role);" +
+            var sql = "INSERT INTO AGENT (Name, Country, RoleId) VALUES (@Name, @Country, @RoleId);" +
                 "SELECT CAST(SCOPE_IDENTITY() as int);";
 
             using (var connection = _context.CreateConnection())
             {
-                return connection.ExecuteScalar<int>(sql, new { agent.Name, agent.Country, agent.Role });
+                return connection.ExecuteScalar<int>(sql, new { agent.Name, agent.Country, agent.RoleId });
             }
         }
 

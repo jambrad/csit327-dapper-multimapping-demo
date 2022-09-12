@@ -11,7 +11,7 @@ internal class Program
         var newAgent = new Agent
         {
             Name = "Reyna",
-            Role = "Duelist",
+            RoleId = 1,
             Country = "Mexico"
         };
         // Insert agent
