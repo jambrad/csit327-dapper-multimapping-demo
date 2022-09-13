@@ -27,17 +27,24 @@ namespace DapperDemo.Repositories
 
             using (var connection = _context.CreateConnection())
             {
-                return connection.ExecuteScalar<int>(sql, new { agent.Name, agent.Country, agent.RoleId });
+                return connection.ExecuteScalar<int>(sql, new { agent.Name, agent.Country, RoleId = agent.Role.Id});
             }
         }
 
         public IEnumerable<Agent> GetAll()
         {
-            var sql = "SELECT * FROM Agent";
+            var sql = "SELECT * FROM Agent a INNER JOIN Role r ON a.RoleId = r.Id;";
 
             using (var connection = _context.CreateConnection())
             {
-                return connection.Query<Agent>(sql);
+                // Query<Obj1, Obj2,....., ReturnObject>
+                return connection.Query<Agent, Role, Agent>(sql, (agent, role) => 
+                {
+                    agent.Role = role;
+                    return agent;
+                });
+                //  Agent <-------- Id=---------> Role
+                // SplitOn default value is Id
             }
         }
     }
